@@ -1,17 +1,17 @@
 # This Python file uses the following encoding: utf-8
 import sys
 import os
-
+from faceRecoui import Ui_faceReco
 
 from PySide2.QtWidgets import QApplication, QMainWindow
 from PySide2.QtCore import QFile
 from PySide2.QtUiTools import QUiLoader
 
 
-class faceReco(QMainWindow):
+class faceReco(QMainWindow, Ui_faceReco):
     def __init__(self):
-        super(faceReco, self).__init__()
-        self.load_ui()
+        super().__init__()
+        self.setupUi(self)
 
     def load_ui(self):
         loader = QUiLoader()
