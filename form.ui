@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>328</height>
+    <width>640</width>
+    <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,14 +16,27 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QWidget" name="widget_2" native="true"/>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>视频区域</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="lbl_video">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </item>
     <item>
      <widget class="QWidget" name="widget" native="true">
       <property name="maximumSize">
        <size>
-        <width>150</width>
-        <height>16777215</height>
+        <width>200</width>
+        <height>480</height>
        </size>
       </property>
       <property name="font">
@@ -38,14 +51,14 @@
         <widget class="QLabel" name="lbl_image">
          <property name="minimumSize">
           <size>
-           <width>128</width>
-           <height>128</height>
+           <width>178</width>
+           <height>178</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>150</width>
-           <height>16777215</height>
+           <width>200</width>
+           <height>200</height>
           </size>
          </property>
          <property name="focusPolicy">
@@ -93,42 +106,60 @@
         </layout>
        </item>
        <item>
-        <widget class="QLabel" name="label_stucode">
-         <property name="maximumSize">
-          <size>
-           <width>150</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>学号</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLabel" name="label_stucode">
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>学号</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="led_code">
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>30</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
-        <widget class="QLineEdit" name="led_code">
-         <property name="maximumSize">
-          <size>
-           <width>150</width>
-           <height>30</height>
-          </size>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="lbl_class">
+           <property name="text">
+            <string>班级</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="led_class"/>
+         </item>
+        </layout>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="btn_start">
            <property name="text">
             <string>开始</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="btn_stop">
            <property name="text">
             <string>停止</string>
            </property>
@@ -146,7 +177,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>480</width>
+     <width>640</width>
      <height>26</height>
     </rect>
    </property>
