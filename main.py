@@ -21,7 +21,7 @@ class faceReco(QMainWindow, Ui_faceReco):
         super().__init__()
         self.setupUi(self)
 
-        
+        self.setWindowTitle("人脸识别门禁系统")
         self.cap = cv2.VideoCapture(0)                      #使用第0个摄像头
         self.lbl_video.setScaledContents(True)              #设置label自适应大小
         #设置无边框
