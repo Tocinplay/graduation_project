@@ -1,19 +1,25 @@
 # This Python file uses the following encoding: utf-8
 import sys
-import os
-from faceRecoui import Ui_faceReco
-
+import time
+from form import Ui_faceReco
 import cv2
-import numpy as np
 import pickle
 
 #分类器使用
-face_cascade = cv2.CascadeClassifier('F:/software/python/Lib/site-packages/cv2/data/haarcascade_frontalface_alt2.xml')  #人脸识别分类器
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_alt2.xml")  #人脸识别分类器
+recognizer = cv2.face.LBPHFaceRecognizer_create()
+recognizer.read("./mytrainer.xml")
+# print(face_cascade)
+labels = {}
+with open("./labels.pickle","rb") as f:
+	origin_labels = pickle.load(f) # {"tocin": 5}
+	labels = {v:k for k, v in origin_labels.items()}
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
-from PyQt5.QtGui import QImage, QPixmap    
-from PyQt5.QtCore import QFile, QTimer, Qt
-from PyQt5.uic import loadUi
+
+from PySide2.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PySide2.QtGui import QImage, QPixmap    
+from PySide2.QtCore import QTimer
+
 
 
 class faceReco(QMainWindow, Ui_faceReco):
@@ -24,8 +30,8 @@ class faceReco(QMainWindow, Ui_faceReco):
         self.setWindowTitle("人脸识别门禁系统")
         self.cap = cv2.VideoCapture(0)                      #使用第0个摄像头
         self.lbl_video.setScaledContents(True)              #设置label自适应大小
-        #设置无边框
-        self.setWindowFlag(Qt.FramelessWindowHint)
+        #设置窗口最大化
+        # self.setWindowState(Qt.WindowMaximized)
 
         #设置定时器来识别人脸，
         self.timer = QTimer()
@@ -35,7 +41,6 @@ class faceReco(QMainWindow, Ui_faceReco):
         #编辑开关,识别框
         self.btn_start.setEnabled(False)
         self.led_name.setEnabled(False)
-        self.led_class.setEnabled(False)
         self.led_code.setEnabled(False)
         #连接关闭按钮
         self.btn_stop.clicked.connect(self.camera_off)
@@ -55,8 +60,14 @@ class faceReco(QMainWindow, Ui_faceReco):
         self.btn_start.setEnabled(True)
         self.btn_stop.setEnabled(False)
         self.lbl_video.clear()
+        self.led_name.clear()
+        self.led_code.clear()
+        self.lbl_image.clear()
 
     def camera(self):
+        self.face_flag = 0
+        self.face_1st = None
+        self.face_time = None
         if self.cap.isOpened():
             ret, frame = self.cap.read() #读取帧
             frame = cv2.flip(frame, 1)
@@ -65,25 +76,55 @@ class faceReco(QMainWindow, Ui_faceReco):
                 faces = face_cascade.detectMultiScale(gray, scaleFactor=1.5, minNeighbors=5)
                 #检测人脸，变化因子scaleFactor1.5,临近值minNeighbor5.  只能传入灰度图来检测所以要转灰度图
                 for (x, y, w, h) in faces:  #人脸坐标
-                    #print(x, y, w, h)
-                    #人脸画框
-                    cv2.rectangle(frame, (x, y), (x+w, y+h), (25,25,112), 2)
-                    #rectangle(帧，起始坐标，终点坐标，BGR颜色，线条粗细）
-                    #(25,25,112)夜空蓝色,(255,69,0)火焰橙红色,(0,128,0)翠绿色
-                    #count += 1
-                    #cv2.imwrite("dataset/" + str(count) + '.jpg', gray[y:y+h,x:x+w])
+                    gray_roi = gray[y:y+h, x:x+w]
+                    id_, conf = recognizer.predict(gray_roi)
+                    print(id_, conf)
+                    if conf >= 70:
+                        # print(labels[id_])
+                        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 128, 0), 2)  
+                        # cv2.putText(frame, str(labels[id_]).split('-')[1], (x, y-15), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,128,0), 2)
+                        face_id = (str(labels[id_]).split('-')[1])
+                        face_name = (str(labels[id_]).split('-')[0])
+                        image_pt = QPixmap("dataset/" + str(labels[id_]) + '/1.jpg').scaled(178, 178)
+                        self.led_name.setText(face_name)
+                        self.led_code.setText(face_id)
+                        self.lbl_image.setPixmap(image_pt)
+                        
+                    # else:
+                    #     face_name = "未知"   
+                        # self.led_name.clear()
+                        # self.led_code.clear()
+                        # self.lbl_image.clear()
 
-                #显示图像
-                #cv2.imshow("gray",gray) #灰度图
-                #cv2.imshow("frame",frame)
-                self.display(frame)
             else:
                 msg_box = QMessageBox()
                 msg_box.setIcon(QMessageBox.Information)
                 msg_box.setText("打开视频失败")
                 msg_box.setWindowTitle("错误信息")
                 msg_box.setStandardButtons(QMessageBox.Ok)
+            self.display(frame)
+
+    #放到文本框中去
+    def putOnlineEdit(self, id_ ):
+        
+        if self.face_flag == 0:
+            self.face_flag = 1
+            self.face_1st = id_
             
+            self.face_time = time.time()         
+        else:  
+            if self.face_1st == id_ :
+                if time.time() - self.face_time > 2.0 :
+                    face_id = (str(labels[id_]).split('-')[1])
+                    face_name = (str(labels[id_]).split('-')[0])
+                    image_pt = QPixmap("dataset/" + str(labels[id_]) + '/1.jpg').scaled(178, 178)
+                    self.led_name.setText(face_name)
+                    self.led_code.setText(face_id)
+                    self.lbl_image.setPixmap(image_pt)
+                    print(face_name +"-"+face_id+"识别成功")
+                self.face_flag = 0
+                
+    
 
     def display(self, frame):
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
