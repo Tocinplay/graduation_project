@@ -4,6 +4,8 @@ import time
 from form import Ui_faceReco
 import cv2
 import pickle
+import requests
+from datetime import datetime
 
 #分类器使用
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_alt2.xml")  #人脸识别分类器
@@ -20,11 +22,24 @@ from PySide2.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PySide2.QtGui import QImage, QPixmap    
 from PySide2.QtCore import QTimer
 
-
+def send_to_server(face_name, face_id, entry_count):
+    # 将识别结果作为JSON数据发送
+    data = {
+        'face_name': face_name,
+        'face_id': face_id,
+        'entry_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),  # 添加当前时间
+        'entry_status': '入校' if entry_count % 2 == 1 else '离校'  # 根据识别次数决定是入校还是离校
+    }
+    response = requests.post('https://tocin.top:8443/api/face_recognition', json=data)
+    if response.status_code == 200:
+        print('发送成功')
+    else:
+        print('发送失败，状态码：', response.status_code)
 
 class faceReco(QMainWindow, Ui_faceReco):
     def __init__(self):
         super().__init__()
+        self.entry_count = 0
         self.setupUi(self)
 
         self.setWindowTitle("人脸识别门禁系统")
@@ -65,6 +80,7 @@ class faceReco(QMainWindow, Ui_faceReco):
         self.lbl_image.clear()
 
     def camera(self):
+        
         self.face_flag = 0
         self.face_1st = None
         self.face_time = None
@@ -79,17 +95,22 @@ class faceReco(QMainWindow, Ui_faceReco):
                     gray_roi = gray[y:y+h, x:x+w]
                     id_, conf = recognizer.predict(gray_roi)
                     print(id_, conf)
-                    if conf >= 70:
+                    if conf >= 70: 
                         # print(labels[id_])
                         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 128, 0), 2)  
                         # cv2.putText(frame, str(labels[id_]).split('-')[1], (x, y-15), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,128,0), 2)
-                        face_id = (str(labels[id_]).split('-')[1])
-                        face_name = (str(labels[id_]).split('-')[0])
+                        face_id = (str(labels[id_]).split('-')[0])
+                        face_name = (str(labels[id_]).split('-')[1])
                         image_pt = QPixmap("dataset/" + str(labels[id_]) + '/1.jpg').scaled(178, 178)
                         self.led_name.setText(face_name)
                         self.led_code.setText(face_id)
                         self.lbl_image.setPixmap(image_pt)
-                        
+                        print(face_name +"-"+face_id+"识别成功")
+                        self.entry_count += 1  # 增加识别次数
+                        send_to_server(face_name, face_id, self.entry_count)
+                        #识别后暂停三秒
+                        # time.sleep(3)
+
                     # else:
                     #     face_name = "未知"   
                         # self.led_name.clear()
