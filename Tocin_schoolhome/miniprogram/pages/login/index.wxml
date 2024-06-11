@@ -1,0 +1,18 @@
+<view class="container">
+  <image class="logo" src="/images/logo.jpg"></image>
+  <view class="form-container">
+    <view class="horizontal">
+      <text class="label">账号</text>
+      <input class="input" type="text" value="{{ account }}" bindinput="handleAccountInput" placeholder="请输入账号"></input>
+    </view>
+    <view class="horizontal">
+      <text class="label">密码</text>
+      <input class="input" type="text" password="{{!showPassword}}" value="{{ password }}" bindinput="handlePasswordInput" placeholder="请输入密码"></input>
+    </view>
+    <view class="options">
+      <checkbox class="checkbox" checked="{{ showPassword }}" bindtap="handleShowPassword">显示密码</checkbox>
+      <view class="option" bind:tap="register">注册账号</view>
+    </view>
+    <button class="login-button" bindtap="login">登录</button>
+  </view>
+</view>

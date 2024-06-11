@@ -1,0 +1,32 @@
+<!--pages/index/index.wxml-->
+<view>
+  <view wx:if="{{!ifLogin}}" class="buttongroup">
+  <button class="wxlogin" bind:tap="login" type="primary">登录</button>
+  <button class="wxlogin" bind:tap="register" style="color: gray;">注册</button>
+  </view>
+</view>
+<view class="page" wx:if="{{ifLogin}}"> 
+    <view wx:for="{{accessList}}" wx:for-item="access" wx:key="accessId">
+        <view class="card">
+            <view class="txt">
+                <view class="title">时间：</view>
+                <view class="info">{{access.time}}</view>
+            </view>
+            <view class="txt">
+                <view class="title">姓名：</view>
+                <view class="info">{{access.name}}</view>
+            </view>
+            <view class="txt">
+                <view class="title">学号：</view>
+                <view class="info">{{access.studentId}}</view>
+            </view>
+            <view class="txt">
+                <view class="title">门禁信息：</view>
+                <view class="info">{{access.accessInfo}}</view>
+            </view>
+        </view>
+    </view>
+    <view>
+        <view class="toast">已无更多门禁信息</view>
+    </view>
+</view>

@@ -1,0 +1,45 @@
+/* pages/index/index.wxss */
+.page {
+    padding: 20px;
+    background-color: #f8f8f8;
+}
+
+.buttongroup {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.wxlogin {
+    margin: 0 10px;
+}
+
+.card {
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.txt {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.title {
+    color: #333333;
+    font-size: 16px;
+}
+
+.info {
+    color: #666666;
+    font-size: 14px;
+}
+
+.toast {
+    text-align: center;
+    color: #999999;
+    margin-top: 20px;
+}

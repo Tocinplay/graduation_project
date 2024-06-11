@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/notice/notice",
+    "pages/main/index",
+    "pages/login/index",
+    "pages/register/index",
+    "pages/addnotice/index",
+    "pages/userinfo/index"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "家校联系系统",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/home_select.png",
+        "iconPath": "images/home.png",
+        "pagePath": "pages/index/index",
+        "text": "主页"
+      },
+      {
+        "selectedIconPath": "images/bell_select.png",
+        "iconPath": "images/bell.png",
+        "pagePath": "pages/notice/notice",
+        "text": "通知"
+      },
+      {
+        "selectedIconPath": "images/user_select.png",
+        "iconPath": "images/user.png",
+        "pagePath": "pages/main/index",
+        "text": "我的"
+      }
+    ]
+  }
+}

@@ -1,0 +1,60 @@
+/* pages/notice.wxss */
+.content {
+  padding: 20px;
+  background-color: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.button-group button {
+  margin-right: 10px;
+}
+
+.notice-list {
+  width: 100%;
+  padding: 10px;
+}
+
+.notice-item {
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.notice-time,
+.notice-class,
+.notice-author,
+.notice-content {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.notice-time,
+.notice-class {
+  color: #333333;
+  font-size: 16px;
+}
+
+.notice-author,
+.notice-content {
+  color: #666666;
+  font-size: 14px;
+}
+
+.notice-empty {
+  text-align: center;
+  color: #999999;
+  margin-top: 20px;
+}

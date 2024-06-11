@@ -1,0 +1,42 @@
+<!-- main.wxml -->
+<view class="container">
+  <!-- 学生基本信息框 -->
+  
+  
+  <view wx:if="{{!userInfo}}" class="buttongroup">
+  <button class="wxlogin" bind:tap="login" type="primary">登录</button>
+  <button class="wxlogin" bind:tap="register" style="color: gray;">注册</button>
+  </view>
+  <view wx:else class="wxinfo">
+  <text class="nichen" style="margin-top: 130rpx;">{{userInfo.nickname}}</text>
+
+  
+    <view class="student-info" style="margin-top: 100rpx;">
+      <text class="info-label">姓名：</text>
+      <text class="info-value">{{ studentName }}</text>
+      <text class="info-label">  学号：</text>
+      <text class="info-value">{{ studentId }}</text>
+      <!-- 其他学生基本信息字段 -->
+    </view>
+  </view>
+</view>
+<view wx:if="{{userInfo}}">
+  <!-- 跳转界面/pages/userinfo/index -->
+  <view class="item" bind:tap="userinfo">
+  <text>个人信息</text>
+  <view class="right_arrow"></view>
+  </view>
+
+  <view class="item" >
+    <button class="openbutton" open-type="feedback">意见反馈</button>
+    <view class="right_arrow"></view>
+  </view>
+  <view class="item" open-type="contact">
+    <button class="openbutton" open-type="contact">在线客服</button>
+    <view class="right_arrow"></view>
+  </view>
+  <view class="item" bind:tap="btn_loginout">
+    <text>退出登录</text>
+    <view class="right_arrow" ></view>
+  </view>
+</view>
