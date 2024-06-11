@@ -39,7 +39,8 @@ def send_to_server(face_name, face_id, entry_count):
 class faceReco(QMainWindow, Ui_faceReco):
     def __init__(self):
         super().__init__()
-        self.entry_count = 0
+        self.entry_count = 0    # 识别次数
+        self.last_recognition_time = 0  # 上次识别时间
         self.setupUi(self)
 
         self.setWindowTitle("人脸识别门禁系统")
@@ -99,17 +100,19 @@ class faceReco(QMainWindow, Ui_faceReco):
                         # print(labels[id_])
                         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 128, 0), 2)  
                         # cv2.putText(frame, str(labels[id_]).split('-')[1], (x, y-15), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,128,0), 2)
-                        face_id = (str(labels[id_]).split('-')[0])
-                        face_name = (str(labels[id_]).split('-')[1])
-                        image_pt = QPixmap("dataset/" + str(labels[id_]) + '/1.jpg').scaled(178, 178)
-                        self.led_name.setText(face_name)
-                        self.led_code.setText(face_id)
-                        self.lbl_image.setPixmap(image_pt)
-                        print(face_name +"-"+face_id+"识别成功")
-                        self.entry_count += 1  # 增加识别次数
-                        send_to_server(face_name, face_id, self.entry_count)
-                        #识别后暂停三秒
-                        # time.sleep(3)
+                        if time.time() - self.last_recognition_time > 3: 
+                            face_id = (str(labels[id_]).split('-')[0])
+                            face_name = (str(labels[id_]).split('-')[1])
+                            image_pt = QPixmap("dataset/" + str(labels[id_]) + '/1.jpg').scaled(178, 178)
+                            self.led_name.setText(face_name)
+                            self.led_code.setText(face_id)
+                            self.lbl_image.setPixmap(image_pt)
+                            print(face_name +"-"+face_id+"识别成功")
+                            self.entry_count += 1  # 增加识别次数
+                            #send_to_server(face_name, face_id, self.entry_count)
+                            self.last_recognition_time = time.time()
+                            #识别后暂停三秒
+                            # time.sleep(3)
 
                     # else:
                     #     face_name = "未知"   
