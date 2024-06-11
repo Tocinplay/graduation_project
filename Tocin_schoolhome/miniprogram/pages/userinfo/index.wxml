@@ -1,0 +1,55 @@
+<view class="container">
+  <view class="header">
+    <text class="title">个人信息</text>
+  </view>
+  <view class="form">
+    <form>
+      <view class="form-item">
+        <text>昵称:</text>
+        <input type="text" name="nickname" value="{{nickname}}" bindinput="inputNickName" placeholder="请输入昵称" />
+      </view>
+      <view class="form-item">
+        <text>真实姓名:</text>
+        <input type="text" name="realname" value="{{realname}}" bindinput="inputRealName" placeholder="请输入真实姓名" />
+      </view>
+      <view class="form-item">
+        <text>性别:</text>
+        <picker mode="selector" range="{{genderArray}}" bind:change="genderChange">
+          <text>{{genderArray[genderIndex]}}</text>
+        </picker>
+      </view>
+      <view class="form-item">
+        <text>年龄:</text>
+        <input type="number" name="age" value="{{age}}" bindinput="inputAge" placeholder="请输入年龄" />
+      </view>
+      <view class="form-item">
+        <text>电话号码:</text>
+        <input type="tel" name="phone" value="{{phoneNumber}}" bindinput="inputPhone" placeholder="请输入电话号码" />
+      </view>
+      <view class="form-item">
+        <text>学校:</text>
+        <input type="text" name="school" value="{{school}}" bindinput="inputSchool" placeholder="请输入学校" />
+      </view>
+      <view class="form-item">
+        <text>班级:</text>
+        <input type="text" name="class" value="{{classnum}}" bindinput="inputClass" placeholder="请输入班级" />
+      </view>
+      <view class="form-item">
+        <text>学籍号:</text>
+        <input type="text" name="stunum" value="{{stunum}}" bindinput="inputStunum" placeholder="请输入学号" />
+      </view>
+      <view class="form-item">
+        <text>地区:</text>
+        <picker mode="region" bindchange="regionChange" value="{{region}}" level="district" >
+          <view class="picker">{{region[0]}}-{{region[1]}}-{{region[2]}}</view>
+        </picker>
+      </view>
+      <view class="form-item">
+        <text>详细地址:</text>
+        <input type="text" name="address" value="{{address}}" bindinput="inputAddress" placeholder="请输入详细住址" />
+      </view>
+      <button type="primary" bind:tap="submit">提交</button>
+      <button style="margin: 30rpx 0" formType="reset">重置</button>
+    </form>
+  </view>
+</view>

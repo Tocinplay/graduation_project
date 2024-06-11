@@ -1,0 +1,14 @@
+[Unit]
+Description=face_recognition
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /api/face_reco_02.py
+Restart=always
+User=root
+WorkingDirectory=/api/
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
+

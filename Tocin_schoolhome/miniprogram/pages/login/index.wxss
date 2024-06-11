@@ -1,0 +1,80 @@
+/* login.wxss */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #fff; /* 设置背景颜色为深色 */
+}
+.horizontal{
+  display: flex;
+  width: 450rpx;
+  flex-direction: row;
+  align-items: center;
+}
+
+.label {
+  display: flex;
+  width: 100rpx;
+  height: 70rpx;
+  margin-bottom: 20rpx;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.logo {
+  width: 200rpx;
+  height: 200rpx;
+  margin-bottom: 20rpx;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20rpx;
+  background-color: rgba(255, 255, 255, 0.5); /* 设置表单区域的背景颜色和透明度 */
+  border-radius: 10rpx;
+}
+
+.input {
+  width: 100%;
+  height: 70rpx;
+  margin-bottom: 20rpx;
+  padding: 0 10rpx;
+  border: 1px solid #cccccc;
+  background-color: rgba(255, 255, 255, 0.3); /* 设置输入框的背景颜色和透明度 */
+  color: rgb(0, 0, 0);
+  border-radius: 5rpx;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  margin-bottom: 20rpx;
+}
+
+.option {
+  color: #007bff;
+  font-size: 26rpx;
+  cursor: pointer; /* 添加鼠标指针样式 */
+}
+
+.checkbox {
+  color: #007bff;
+  font-size: 26rpx;
+  cursor: pointer; /* 添加鼠标指针样式 */
+}
+.login-button {
+  width: 50%;
+  height: 70rpx;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 26rpx;
+  border: none;
+  border-radius: 5rpx;
+}

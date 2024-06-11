@@ -1,0 +1,16 @@
+<!--pages/addnotice/index.wxml-->
+<view class="content">
+  <view class="input-group">
+    <text>班级:</text>
+    <input type="text" model:value="{{class}}" placeholder="请输入班级" />
+  </view>
+  <view class="input-group">
+    <text>发布人:</text>
+    <input type="text" model:value="{{author}}" placeholder="请输入发布人" />
+  </view>
+  <view class="input-group">
+    <text>通知内容:</text>
+    <textarea model:value="{{content}}" placeholder="请输入通知内容" />
+  </view>
+  <button type="primary" bind:tap="submit">发布通知</button>
+</view>

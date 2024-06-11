@@ -1,0 +1,23 @@
+<!--pages/notice.wxml-->
+<view class="content">
+  <view class="button-group">
+    <button type="primary" bind:tap="edit">发布通知</button>
+    <button type="primary" bind:tap="refresh">刷新通知</button>
+  </view>
+  <view class="notice-list" wx:for="{{notices}}" wx:key="id">
+    <navigator url="/pages/noticeDetail/noticeDetail?id={{item.id}}">
+      <view class="notice-item">
+        <text class="notice-time">{{item.time}}</text>
+        <text class="notice-class">{{item.class}}</text>
+        <text class="notice-author">{{item.author}}</text>
+        <text class="notice-content">{{item.content}}</text>
+      </view>
+    </navigator>
+  </view>
+  <view >
+    <text class="notice-empty" wx:if="{{notices.length == 0}}">暂无通知</text>
+  </view>
+  <view >
+    <text class="notice-empty" wx:if="{{notices.length > 0}}">已经到底了</text>
+  </view>
+</view>
